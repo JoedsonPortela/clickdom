@@ -1,0 +1,55 @@
+version: "3.7"
+services:
+
+## --------------------------- ORION --------------------------- ##
+
+  clickdom:
+    image: clickdom:1.0 ## Construída no servidor: docker build -t clickdom:1.0 .
+
+    networks:
+      - traefik ## Nome da rede interna
+
+    environment:
+      - MAX_UPLOAD_BYTES=2097152
+
+    ## 🔒 Endurecimento do container
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.clickdom.rule=Host(`clickdom.jps.dev.br`)
+        - traefik.http.routers.clickdom.entrypoints=websecure
+        - traefik.http.routers.clickdom.tls.certresolver=letsencryptresolver
+        - traefik.http.routers.clickdom.service=clickdom
+        - traefik.http.routers.clickdom.middlewares=clickdom-rl,clickdom-hdr,clickdom-buf
+        - traefik.http.services.clickdom.loadbalancer.server.port=8000
+        - traefik.http.services.clickdom.loadbalancer.passHostHeader=true
+        ## Limite de requisições por IP, tamanho de corpo e HSTS
+        - traefik.http.middlewares.clickdom-rl.ratelimit.average=30
+        - traefik.http.middlewares.clickdom-rl.ratelimit.period=1m
+        - traefik.http.middlewares.clickdom-rl.ratelimit.burst=15
+        - traefik.http.middlewares.clickdom-buf.buffering.maxRequestBodyBytes=2097152
+        - traefik.http.middlewares.clickdom-hdr.headers.stsSeconds=31536000
+        - traefik.http.middlewares.clickdom-hdr.headers.stsIncludeSubdomains=true
+        - traefik.http.middlewares.clickdom-hdr.headers.forceSTSHeader=true
+
+## --------------------------- ORION --------------------------- ##
+
+networks:
+  traefik: ## Nome da rede interna
+    name: traefik ## Nome da rede interna
+    external: true

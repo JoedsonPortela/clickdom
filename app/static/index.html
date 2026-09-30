@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClickDom · Tratamento de importação</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header>
+    <h1>Click<span>Dom</span></h1>
+    <p>Corrige o arquivo de importação do Gestão Click para o Domínio Contabilidade.</p>
+  </header>
+
+  <section id="drop" class="card" tabindex="0" role="button" aria-label="Selecionar arquivo">
+    <div class="icone">⇪</div>
+    <strong>Arraste o arquivo .txt aqui</strong>
+    <small>ou clique para selecionar · máx. 2 MB</small>
+    <input id="file" type="file" accept=".txt,text/plain" hidden>
+  </section>
+
+  <p id="erro" class="erro" role="alert" hidden></p>
+
+  <section id="resultado" class="card" hidden>
+    <h2>Arquivo tratado</h2>
+    <div class="metricas">
+      <div><b id="m-blocos">0</b><span>blocos corrigidos</span></div>
+      <div><b id="m-linhas">0</b><span>linhas separadas</span></div>
+      <div><b id="m-total">0</b><span>linhas no arquivo final</span></div>
+    </div>
+    <p id="nada" class="ok" hidden>Nenhum problema encontrado — o arquivo já estava correto.</p>
+    <ul id="avisos" class="avisos"></ul>
+    <table id="tabela" hidden>
+      <thead><tr><th>Linha</th><th>Data</th><th>Valor</th><th>Histórico</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <button id="baixar" class="btn">Baixar arquivo tratado</button>
+  </section>
+
+  <footer>Os arquivos são processados em memória e não ficam armazenados no servidor.</footer>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+:root{--bg:#f5f6fa;--card:#fff;--tx:#14171f;--mut:#667085;--bd:#e3e6ee;--ac:#4f46e5;--ok:#0f9d58;--err:#d92d20;--warn:#b54708}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1016;--card:#171a23;--tx:#eef0f6;--mut:#98a2b3;--bd:#272b38;--ac:#818cf8;--ok:#34d399;--err:#f97066;--warn:#fdb022}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:40px 16px}
+header h1{margin:0;font-size:2rem;letter-spacing:-.02em}
+header h1 span{color:var(--ac)}
+header p{color:var(--mut);margin:.25rem 0 1.5rem}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:24px;margin-bottom:16px}
+#drop{display:flex;flex-direction:column;align-items:center;gap:4px;padding:48px 24px;border:2px dashed var(--bd);cursor:pointer;text-align:center;transition:.15s}
+#drop:hover,#drop:focus-visible,#drop.over{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 6%,var(--card));outline:none}
+.icone{font-size:2.2rem;color:var(--ac)}
+small{color:var(--mut)}
+h2{margin:0 0 16px;font-size:1.1rem}
+.metricas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.metricas div{background:var(--bg);border-radius:12px;padding:14px;text-align:center}
+.metricas b{display:block;font-size:1.6rem}
+.metricas span{color:var(--mut);font-size:.8rem}
+table{width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:16px}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--bd)}
+th{color:var(--mut);font-weight:600}
+.btn{width:100%;padding:14px;border:0;border-radius:12px;background:var(--ac);color:#fff;font:inherit;font-weight:600;cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.erro{color:var(--err);background:color-mix(in srgb,var(--err) 10%,transparent);padding:12px 16px;border-radius:12px}
+.ok{color:var(--ok)}
+.avisos{color:var(--warn);padding-left:20px}
+footer{color:var(--mut);font-size:.8rem;text-align:center;margin-top:24px}
+[hidden]{display:none!important}
+@media(max-width:520px){.metricas{grid-template-columns:1fr}}
